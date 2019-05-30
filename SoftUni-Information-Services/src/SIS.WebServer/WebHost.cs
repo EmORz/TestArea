@@ -5,10 +5,15 @@ using SIS.HTTP.Enums;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Action;
+<<<<<<< HEAD
 using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Routing;
 using SIS.WebServer;
 using SIS.WebServer.Result;
+=======
+using SIS.MvcFramework.Routing;
+using SIS.WebServer;
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
 using SIS.WebServer.Routing;
 
 namespace SIS.MvcFramework
@@ -65,6 +70,7 @@ namespace SIS.MvcFramework
                     {
                         // request => new UsersController().Login(request)
                         var controllerInstance = Activator.CreateInstance(controller);
+<<<<<<< HEAD
                         ((Controller)controllerInstance).Request = request;
                         var controllerPrincipal = ((Controller)controllerInstance).User;
                         //
@@ -75,6 +81,9 @@ namespace SIS.MvcFramework
                             return new HttpResponse(HttpResponseStatusCode.Forbidden);
                         }
                         var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
+=======
+                        var response = action.Invoke(controllerInstance, new[] { request }) as IHttpResponse;
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
                         return response;
                     });
 

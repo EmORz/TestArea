@@ -5,7 +5,10 @@ using SIS.HTTP.Enums;
 using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework.Extensions;
+<<<<<<< HEAD
 using SIS.MvcFramework.Identity;
+=======
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
 using SIS.MvcFramework.Result;
 using SIS.WebServer.Result;
 
@@ -18,6 +21,7 @@ namespace SIS.MvcFramework
             ViewData = new Dictionary<string, object>();
         }
 
+<<<<<<< HEAD
         public Principal User => 
             this.Request.Session.ContainsParameter("principal")
             ?(Principal)this.Request.Session.GetParameter("principal")
@@ -25,6 +29,8 @@ namespace SIS.MvcFramework
 
         public IHttpRequest Request { get; set; }
 
+=======
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
         protected Dictionary<string, object> ViewData;
 
         private string ParseTemplate(string viewContent)
@@ -38,6 +44,7 @@ namespace SIS.MvcFramework
             return viewContent;
         }
 
+<<<<<<< HEAD
         protected bool IsLoggedIn()
         {
             return this.Request.Session.ContainsParameter("principal");
@@ -59,6 +66,23 @@ namespace SIS.MvcFramework
         protected void SignOut()
         {
             Request.Session.ClearParameters();
+=======
+        protected bool IsLoggedIn(IHttpRequest request)
+        {
+            return request.Session.ContainsParameter("username");
+        }
+
+        protected void SignIn(IHttpRequest httpRequest, string id, string username, string email)
+        {
+            httpRequest.Session.AddParameter("id", id);
+            httpRequest.Session.AddParameter("username", username);
+            httpRequest.Session.AddParameter("email", email);
+        }
+
+        protected void SignOut(IHttpRequest httpRequest)
+        {
+            httpRequest.Session.ClearParameters();
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
         }
 
         protected ActionResult View([CallerMemberName] string view = null)

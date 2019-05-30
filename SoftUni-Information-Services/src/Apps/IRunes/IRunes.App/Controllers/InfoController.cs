@@ -20,6 +20,7 @@ namespace IRunes.App.Controllers
             return base.ToString();
         }
 
+<<<<<<< HEAD
         public ActionResult Json(IHttpRequest request)
         {
             return Json(new
@@ -35,6 +36,11 @@ namespace IRunes.App.Controllers
 
         public ActionResult File(IHttpRequest request)
         {
+=======
+        public ActionResult File(IHttpRequest request)
+        {
+            //var path = request.Path;
+>>>>>>> 5fc0bbc7dc1ca27022020ca9c0b703917b7fbd37
             string folderPrefix = "/../";
             string assemblyLocation = this.GetType().Assembly.Location;
             string resourceFolderPath = "Resources/";
