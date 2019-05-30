@@ -18,7 +18,10 @@ namespace SIS.MvcFramework
             ViewData = new Dictionary<string, object>();
         }
 
-        protected Principal User => (Principal)this.Request.Session.GetParameter("principal");
+        public Principal User => 
+            this.Request.Session.ContainsParameter("principal")
+            ?(Principal)this.Request.Session.GetParameter("principal")
+            :null;
 
         public IHttpRequest Request { get; set; }
 
@@ -37,7 +40,7 @@ namespace SIS.MvcFramework
 
         protected bool IsLoggedIn()
         {
-            return this.User!=null;
+            return this.Request.Session.ContainsParameter("principal");
         }
 
         protected void SignIn( string id, string username, string email)

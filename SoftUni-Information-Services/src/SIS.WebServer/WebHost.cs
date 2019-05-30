@@ -5,6 +5,7 @@ using SIS.HTTP.Enums;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Action;
+using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Routing;
 using SIS.WebServer;
 using SIS.WebServer.Result;
@@ -64,7 +65,15 @@ namespace SIS.MvcFramework
                     {
                         // request => new UsersController().Login(request)
                         var controllerInstance = Activator.CreateInstance(controller);
-                        ((Controller) controllerInstance).Request = request;
+                        ((Controller)controllerInstance).Request = request;
+                        var controllerPrincipal = ((Controller)controllerInstance).User;
+                        //
+                        var authorizeAttribute = action.GetCustomAttributes()
+                            .LastOrDefault(x => x.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+                        if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        {
+                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
+                        }
                         var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
                         return response;
                     });

@@ -20,9 +20,21 @@ namespace IRunes.App.Controllers
             return base.ToString();
         }
 
+        public ActionResult Json(IHttpRequest request)
+        {
+            return Json(new
+            {
+                Name = "Pesho",
+                Age = 25,
+                Occupation = "Free Lancer",
+                Married = false
+            });
+
+        }
+
+
         public ActionResult File(IHttpRequest request)
         {
-            //var path = request.Path;
             string folderPrefix = "/../";
             string assemblyLocation = this.GetType().Assembly.Location;
             string resourceFolderPath = "Resources/";
